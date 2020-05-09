@@ -13,4 +13,7 @@ abstract class TikaClient {
 
   /// Sends [buffer] to the Tika server and gets its parsed version as plain text.
   Future<String> parseBufferAsPlainText(List<int> buffer);
+
+  //Sends [buffer] to the Tika server and gets its meta as json
+  Future<Map<String, dynamic>> parseBufferAsMeta(List<int> buffer);
 }

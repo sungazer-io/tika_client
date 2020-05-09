@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:http_client/http_client.dart';
 import 'package:tika_client/tika_client.dart';
@@ -26,6 +27,16 @@ class TikaClientImpl implements TikaClient {
     final rs = await _client.send(rq);
     return await rs.readAsString();
   }
+
+  @override
+  Future<Map<String, dynamic>> parseBufferAsMeta(List<int> buffer) async {
+    final rq = new Request('PUT', '$_url/meta',
+        headers: {'Accept': 'application/json'}, body: buffer);
+    final rs = await _client.send(rq);
+    return json.decode(await rs.readAsString());
+  }
+
+
 }
 
 String _stripEndingSlash(String url) {
